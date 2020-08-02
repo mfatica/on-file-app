@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
+    libzip-dev \
     locales \
     zip \
     jpegoptim optipng pngquant gifsicle \
@@ -19,13 +20,13 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     curl \
-    npm
+    npm 
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install extensions
-RUN docker-php-ext-install pdo_mysql exif pcntl
+RUN docker-php-ext-install pdo_mysql zip exif pcntl
 RUN docker-php-ext-configure gd
 RUN docker-php-ext-install gd
 
@@ -47,4 +48,6 @@ USER www
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
+EXPOSE 6006
+
 CMD ["php-fpm"]

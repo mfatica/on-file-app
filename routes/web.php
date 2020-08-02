@@ -20,3 +20,22 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/uploads/{id}', function(Request $request, $id) {
+    $upload = App\Upload::findOrFail($id);
+
+    $client = Storage::getDriver()
+        ->getAdapter()
+        ->getClient();
+
+    $expiry = "+10 minutes";
+
+    $command = $client->getCommand('GetObject', [
+        'Bucket' => config('filesystems.disks.s3.bucket'),
+        'Key' => $upload->key
+    ]);
+
+    $request = $client->createPresignedRequest($command, $expiry);
+
+    return redirect((string) $request->getUri());
+});

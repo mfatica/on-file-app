@@ -29,6 +29,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
+      - "6006:6006"
     networks:
       - app-network
     volumes:

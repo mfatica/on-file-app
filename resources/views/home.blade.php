@@ -22,6 +22,7 @@
 </div>
 
 <div>
-  <example-component></example-component>
+  <file-upload-component></file-upload-component>
+  <file-list-component></file-list-component>
 </div>
 @endsection

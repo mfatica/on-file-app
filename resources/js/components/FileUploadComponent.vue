@@ -3,11 +3,9 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Example Component</div>
+                    <div class="card-header">Upload Your Shit</div>
 
                     <div class="card-body">
-                        I'm an example component.
-                        
                         <input type="file" id="file" ref="file" @change="upload">
                     </div>
 
@@ -24,6 +22,7 @@
         },
         methods: {
             upload() {
+
                 Vapor.store(this.$refs.file.files[0], {
                     progress: progress => {
                         this.uploadProgress = Math.round(progress * 100);
@@ -40,6 +39,7 @@
                         bus.$emit('upload-complete')
                     })
                 });
+                
             }
         }
     }
