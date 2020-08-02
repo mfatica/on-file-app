@@ -10,7 +10,40 @@ class UploadController extends Controller
     {
         $user = \Auth::user();
 
-        return $user->uploads;
+        return $user->uploads()
+            ->with('tags')
+            ->get();
+    }
+
+    public function addTag(\App\Upload $upload, $text)
+    {
+        $tagExists = $upload->tags()
+            ->where('text', '=', $text)
+            ->exists();
+
+        if ($tagExists) {
+            return 200;
+        }
+
+        $tag = \App\Tag::firstOrCreate([
+            'text' => $text
+        ]);
+
+        $upload->tags()
+            ->attach($tag->id);
+
+        return 200;
+    }
+
+    public function deleteTag(\App\Upload $upload, $text)
+    {
+        $tag = \App\Tag::where('text', '=', $text)
+            ->firstOrFail();
+
+        $upload->tags()
+            ->detach($tag->id);
+
+        return 200;
     }
 
     public function uploadFile(Request $request) 
