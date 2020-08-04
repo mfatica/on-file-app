@@ -17,5 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:api'])->group(function() {
     Route::get('/uploads', 'UploadController@getUploads');
     Route::post('/uploads', 'UploadController@uploadFile');
+    Route::post('/uploads/{upload}/tags/{text}', 'UploadController@addTag');
+    Route::delete('/uploads/{upload}/tags/{text}', 'UploadController@deleteTag');
 });
 

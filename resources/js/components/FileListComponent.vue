@@ -6,11 +6,14 @@
                     <div class="card-header">File List Component</div>
 
                     <div class="card-body">
-                        <ul v-if="uploads">
-                            <li v-for="upload in uploads" :key="upload.id">
-                                {{upload.name}} <a :href='"/uploads/" + upload.id' target="_blank">Download</a>
-                            </li>
-                        </ul>
+                        <div v-if="uploads" class="container">
+                            <div class="row">
+                                <div class="col-3-sm" 
+                                    v-for="upload in uploads" :key="upload.id">
+                                    <uploaded-file-component :upload="upload"/>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -40,7 +43,7 @@
                     console.log(response);
                     this.uploads = response.data;
                 })
-            }
+            },
         }
     }
 </script>

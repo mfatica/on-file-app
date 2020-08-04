@@ -14,4 +14,9 @@ class Upload extends Model
         'content_type',
         'user_id'
     ];
+
+    public function tags()
+    {
+        return $this->morphToMany('App\Tag', 'taggable');
+    }
 }
